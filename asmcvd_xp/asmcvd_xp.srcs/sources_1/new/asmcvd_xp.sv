@@ -1,0 +1,81 @@
+`timescale 1ns / 1ps
+
+module asmcvd_xp(
+    input                   clk_100meg,
+    input                   clk_50meg,
+    
+    input                   async_rst_ni,
+    
+    input           [07:00] operand_1,
+    input           [07:00] operand_2,
+    output  logic   [07:00] result,
+    output  logic   [07:00] result_2    
+
+    );
+    logic   [7:0] s1iop1,s1iop2,s1oop1,s1oop2,s2iop1,s2iop2,s2oop1,s2oop2, opmi1,opmi2, opmo1, opmo2;
+    
+    adder AD1(
+    .operand_1    (operand_1 ),  
+    .operand_2    (operand_2 ),
+                  
+    .out_operand_1(s1iop1 ),
+    .out_operand_2(s1iop2 ) 
+    
+    );
+    
+    pipeline_reg PS1 (
+    .clk_i        (clk_100meg),  
+    .rst_ni       (async_rst_ni),
+               
+    .operand_1    (s1iop1),
+    .operand_2    (s1iop2),
+                 
+    .out_operand_1(s1oop1),
+    .out_operand_2(s1oop2)
+    );
+    
+    ///
+    
+    multiplier MUL1(
+    .clk          (clk_50meg),
+    .operand_1    (s1oop1 ),  
+    .operand_2    (s1oop2 ),
+                  
+    .out_operand_1(s2iop1 ),
+    .out_operand_2(s2iop2 ) 
+    
+    );
+    
+    multiplier MUL2(
+    .clk          (!clk_50meg),
+    .operand_1    (s1oop1 ),  
+    .operand_2    (s1oop2 ),
+                  
+    .out_operand_1(s2iop1 ),
+    .out_operand_2(s2iop2 ) 
+    
+    );
+    
+    ///
+    pipeline_reg PS2 (
+    .clk_i        (clk_100meg),  
+    .rst_ni       (async_rst_ni),
+               
+    .operand_1    (s2iop1),
+    .operand_2    (s2iop2),
+                 
+    .out_operand_1(s2oop1),
+    .out_operand_2(s2oop2)
+    );
+    
+    
+    adder AD2(
+    .operand_1    (s2oop1 ),  
+    .operand_2    (s2oop2 ),
+                  
+    .out_operand_1(result ),
+    .out_operand_2(result_2 ) 
+    
+    );
+    
+endmodule
