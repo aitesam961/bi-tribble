@@ -1,17 +1,18 @@
 # bi-tribble
-Experimental implementation of multi-clock synchronous digital logic
-Design consists of sequential datapath. The design blocks are as follows.
-
-The objective is to operate slower logic in parallel fashion with time multiplexing to avoid it's affect on the system clock.
+**Experimental implementation of multi-clock synchronous digital logic.**
+Design consists of a sequential datapath. The design blocks are as follows.
 
 ![Concept](bi-tribble_concept.png)
+
+The objective is to operate slower logic in parallel fashion with time multiplexing to avoid it's affect on the system clock.
 
 ### Procedure
 
 - The operation is simple `ADD->MULTIPLY->ADD`
 - 100MHz clock is fed into pipeline stages.
 - A demux distributes the between each multiplier.
-- 50MHz clock is fed into mux and demux, `MUL1@CLK`,`MUL2@~CLK`
+- 50MHz clock is fed into mux and demux
+-  `MUL1@CLK` MUL1 operates on `clk_50meg==1` while `MUL2@~CLK` MUL2 operates on `clk_50meg==0`
 
 ### Timing Diagram
 
@@ -31,7 +32,14 @@ https://github.com/aitesam961/bi-tribble/blob/main/schematic.pdf
 
 This design works as intended in the Behavioural simulations but synthesis with Xilinx Vivado infers latches before multiplier (as a substitute for demux, vivado doesn't support demux) probably to keep results buffered after the cycle is over. 
 
-One alternative could be to make the multipliers clock sensitive but that means additional clock cycle before the result would be transparent.
+One alternative could be to make the multipliers clock sensitive but that means additional clock cycle before the result would be transparent. Secondly, the significant delay is required after the Stage-1 before the multiplier can sample input and perform the execution. This leads to 
 
 ### Outcome
 
+In behavioural sim, the result is delivered in impressive 
+
+This approach, if made successful with some workarounds in synthesis may be useful for certain cases but a single pipelined multiplier would offer the same functionality. This important point was oversighted in my initial concept.
+
+For example, in case where 100MHz and 50MHz clocks are being used, the result A will be returned after at least ~35ns (10ns cycle latency + 20ns 1x 50meg cycle latency + ~5ns adder latency) which is similar to the fully pipelined approach where MUL will take 2x cycles.
+
+Sadly no gains in overall execution time.
