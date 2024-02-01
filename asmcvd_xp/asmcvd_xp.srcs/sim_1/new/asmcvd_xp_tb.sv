@@ -29,11 +29,19 @@ module asmcvd_xp_tb;
     
     initial begin
         clk_100 =   0;
-        clk_50  =   0;
         forever #10 clk_100 =   ~clk_100;   // generate 100MHz Clock    (10ns)
+    end
+    initial begin
+        clk_50  =   0;
         forever #20 clk_50  =   ~clk_50;    // generate 50MHz Clock     (20ns)
     end
     
+    initial begin
+        #5;
+        async_rst_n = 0;
+        #5;
+        async_rst_n = 1;
+    end
     initial begin
         for(int i = 0;i<=10;i++)begin
             op1   = $urandom_range(0,8); 

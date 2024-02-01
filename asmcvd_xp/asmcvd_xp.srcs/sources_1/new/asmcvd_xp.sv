@@ -12,8 +12,8 @@ module asmcvd_xp(
     output  logic   [07:00] result_2    
 
     );
-    logic   [7:0] s1iop1,s1iop2,s1oop1,s1oop2,s2iop1,s2iop2,s2oop1,s2oop2, opmi1,opmi2, opmo1, opmo2;
-    
+    logic   [7:0] s1iop1,s1iop2,s1oop1,s1oop2,s2iop11,s2iop12,s2iop21,s2iop22,s2oop1,s2oop2, opmi1,opmi2, opmo1, opmo2,s2iop1,s2iop2;
+                                                                                                                       
     adder AD1(
     .operand_1    (operand_1 ),  
     .operand_2    (operand_2 ),
@@ -38,24 +38,35 @@ module asmcvd_xp(
     
     multiplier MUL1(
     .clk          (clk_50meg),
+    .rst          (async_rst_ni),
     .operand_1    (s1oop1 ),  
     .operand_2    (s1oop2 ),
                   
-    .out_operand_1(s2iop1 ),
-    .out_operand_2(s2iop2 ) 
+    .out_operand_1(s2iop11 ),
+    .out_operand_2(s2iop12 ) 
     
     );
     
     multiplier MUL2(
     .clk          (!clk_50meg),
+    .rst          (async_rst_ni),
     .operand_1    (s1oop1 ),  
     .operand_2    (s1oop2 ),
                   
-    .out_operand_1(s2iop1 ),
-    .out_operand_2(s2iop2 ) 
+    .out_operand_1(s2iop21 ),
+    .out_operand_2(s2iop22 ) 
     
     );
-    
+    always_comb begin
+        if(clk_100meg)begin
+            s2iop1  <=  s2iop11;
+            s2iop2  <=  s2iop12;
+        end
+        else begin
+            s2iop1  <=  s2iop21;
+            s2iop2  <=  s2iop22;
+        end
+    end
     ///
     pipeline_reg PS2 (
     .clk_i        (clk_100meg),  

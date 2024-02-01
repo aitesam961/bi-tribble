@@ -10,7 +10,7 @@ module adder(
     );
     
     always_comb begin
-        out_operand_1   <=  out_operand_1   +   out_operand_2;
-        out_operand_2   <=  out_operand_2;
+        out_operand_1   <=  operand_1   +   operand_2;
+        out_operand_2   <=  operand_1   + 1;
     end
 endmodule
