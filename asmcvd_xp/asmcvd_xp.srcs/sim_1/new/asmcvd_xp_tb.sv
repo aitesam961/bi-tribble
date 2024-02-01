@@ -33,6 +33,8 @@ module asmcvd_xp_tb;
     end
     initial begin
         clk_50  =   0;
+        #10;
+        clk_50  =   1;
         forever #20 clk_50  =   ~clk_50;    // generate 50MHz Clock     (20ns)
     end
     
@@ -44,8 +46,8 @@ module asmcvd_xp_tb;
     end
     initial begin
         for(int i = 0;i<=10;i++)begin
-            op1   = $urandom_range(0,8); 
-            op2   = $urandom_range(0,8); 
+            op1   = $urandom_range(1,8); 
+            op2   = $urandom_range(1,8); 
             #10;
         end
         $finish;
