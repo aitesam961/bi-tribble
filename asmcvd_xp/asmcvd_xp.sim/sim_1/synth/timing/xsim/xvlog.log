@@ -1,0 +1,9 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/aitesam961/GitHub/bi-tribble/asmcvd_xp/asmcvd_xp.sim/sim_1/synth/timing/xsim/asmcvd_xp_tb_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module adder
+INFO: [VRFC 10-311] analyzing module adder_0
+INFO: [VRFC 10-311] analyzing module asmcvd_xp
+INFO: [VRFC 10-311] analyzing module multiplier
+INFO: [VRFC 10-311] analyzing module multiplier_1
+INFO: [VRFC 10-311] analyzing module pipeline_reg
+INFO: [VRFC 10-311] analyzing module pipeline_reg_2
+INFO: [VRFC 10-311] analyzing module glbl
