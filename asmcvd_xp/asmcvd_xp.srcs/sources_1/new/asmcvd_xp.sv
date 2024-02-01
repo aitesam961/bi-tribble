@@ -12,7 +12,7 @@ module asmcvd_xp(
     output  logic   [07:00] result_2    
 
     );
-    logic   [7:0] s1iop1,s1iop2,s1oop1,s1oop2,s2iop11,s2iop12,s2iop21,s2iop22,s2oop1,s2oop2,s2iop1,s2iop2;
+    logic   [7:0] s1iop1,s1iop2,s1oop1,s1oop2,s1oop11,s1oop12,s1oop21,s1oop22, s2iop11,s2iop12,s2iop21,s2iop22,s2oop1,s2oop2,s2iop1,s2iop2;
                                                                                                                        
     adder AD1(
     .operand_1    (operand_1 ),  
@@ -37,8 +37,8 @@ module asmcvd_xp(
     ///
     
     multiplier MUL1(
-    .operand_1    (s1oop1 ),  
-    .operand_2    (s1oop2 ),
+    .operand_1    (s1oop11 ),  
+    .operand_2    (s1oop12 ),
                   
     .out_operand_1(s2iop11 ),
     .out_operand_2(s2iop12 ) 
@@ -46,15 +46,23 @@ module asmcvd_xp(
     );
     
     multiplier MUL2(
-    .operand_1    (s1oop1 ),  
-    .operand_2    (s1oop2 ),
+    .operand_1    (s1oop21 ),  
+    .operand_2    (s1oop22 ),
                   
     .out_operand_1(s2iop21 ),
     .out_operand_2(s2iop22 ) 
     
     );
     always_comb begin
-        if(clk_100meg)begin
+        if(clk_50meg)begin
+            s1oop11  <=  s1oop1;
+            s1oop12  <=  s1oop2;
+        end
+        else begin
+            s1oop21  <=  s1oop1;
+            s1oop22  <=  s1oop2;
+        end
+        if(clk_50meg)begin
             s2iop1  <=  s2iop11;
             s2iop2  <=  s2iop12;
         end
