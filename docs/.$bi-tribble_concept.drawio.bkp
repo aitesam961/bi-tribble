@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-02T15:19:59.278Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="tRmBLhpwo1wbr-hhJlqX" version="22.1.21" type="device">
+<mxfile host="Electron" modified="2024-02-02T15:19:33.371Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="gV4oVF0w0gSXiyQXlxhq" version="22.1.21" type="device">
   <diagram name="Page-1" id="ENiuN99lrxfhTGoukKS1">
-    <mxGraphModel dx="768" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1311" dy="774" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -80,7 +80,7 @@
         <mxCell id="byj2R7371oZGW_TDF4cE-14" value="R&lt;br&gt;E&lt;br&gt;G" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="782" y="190" width="40" height="320" as="geometry" />
         </mxCell>
-        <mxCell id="byj2R7371oZGW_TDF4cE-17" value="(@negedge) 50MHz" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="byj2R7371oZGW_TDF4cE-17" value="(negedge) 50MHz" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="370" y="550" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="byj2R7371oZGW_TDF4cE-20" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" edge="1">
@@ -169,7 +169,7 @@
             <mxPoint x="729.8" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="byj2R7371oZGW_TDF4cE-45" value="50MHz&lt;br&gt;(@level)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="byj2R7371oZGW_TDF4cE-45" value="50MHz" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="700" y="210" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="byj2R7371oZGW_TDF4cE-47" value="" style="shape=loopLimit;whiteSpace=wrap;html=1;size=16;direction=south;" parent="1" vertex="1">
@@ -226,7 +226,7 @@
             <mxPoint x="250" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3hp7CJCRCLBaU4lJef0O-7" value="(@posedge) 50MHz" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="3hp7CJCRCLBaU4lJef0O-7" value="(posedge) 50MHz" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="370" y="100" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
