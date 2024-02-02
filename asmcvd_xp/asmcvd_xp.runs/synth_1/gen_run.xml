@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7a200tfbg676-2" LaunchTime="1706768990">
-  <File Type="VDS-TIMING-PB" Name="asmcvd_xp_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="asmcvd_xp_timing_summary_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="asmcvd_xp_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="asmcvd_xp_utilization_synth.pb"/>
+  <File Type="RDS-RDS" Name="asmcvd_xp.vds"/>
   <File Type="RDS-DCP" Name="asmcvd_xp.dcp"/>
   <File Type="PA-TCL" Name="asmcvd_xp.tcl"/>
   <File Type="REPORTS-TCL" Name="asmcvd_xp_reports.tcl"/>
-  <File Type="RDS-RDS" Name="asmcvd_xp.vds"/>
-  <File Type="RDS-PROPCONSTRS" Name="asmcvd_xp_drc_synth.rpt"/>
-  <File Type="RDS-UTIL" Name="asmcvd_xp_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="asmcvd_xp_utilization_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/adder.sv">

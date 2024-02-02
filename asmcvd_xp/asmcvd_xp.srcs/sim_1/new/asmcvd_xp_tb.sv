@@ -40,9 +40,9 @@ module asmcvd_xp_tb;
     
     initial begin
         async_rst_n = 1;
-        #4;
+        #5;
         async_rst_n = 0;
-        #6;
+        #5;
         async_rst_n = 1;
     end
     initial begin

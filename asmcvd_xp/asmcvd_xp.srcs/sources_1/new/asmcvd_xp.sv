@@ -62,7 +62,7 @@ module asmcvd_xp(
             s1oop21  <=  s1oop1;
             s1oop22  <=  s1oop2;
         end
-        if(clk_50meg)begin
+        if(!clk_50meg)begin
             s2iop1  <=  s2iop11;
             s2iop2  <=  s2iop12;
         end
