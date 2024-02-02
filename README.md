@@ -2,7 +2,7 @@
 **Experimental implementation of multi-clock synchronous digital logic.**
 Design consists of a sequential datapath. The design blocks are as follows.
 
-![Concept](bi-tribble_concept.png)
+![Concept](docs/bi-tribble_concept.png)
 
 The objective is to operate slower logic in parallel fashion with time multiplexing to avoid it's affect on the system clock.
 
@@ -16,7 +16,7 @@ The objective is to operate slower logic in parallel fashion with time multiplex
 
 ### Timing Diagram
 
-![Concept](Screenshot1.png)
+![Concept](waveform/screenshot2.png)
 
 ### Explanation
 
