@@ -6,40 +6,48 @@ Design consists of a sequential datapath. The design blocks are as follows.
 
 The objective is to operate slower logic in parallel fashion with time multiplexing to avoid it's affect on the system clock.
 
-### Procedure
+## Procedure
 
 - The operation is simple `ADD->MULTIPLY->ADD`
-- 100MHz clock is fed into pipeline stages.
-- A demux distributes the between each multiplier.
-- 50MHz clock is fed into mux and demux
--  `MUL1@CLK` MUL1 is selected `clk_50meg==1` while `MUL2@~CLK` MUL2 is selected `clk_50meg==0`
+- 100MHz clock is the datapath operating frequency i.e new data enters every 10ns.
+- Pipeline registers at stage-1 operate in parallel yet at opposite timings of 50meg clock. (posedge/negedge)
+- MUX (level sensitive) operates at 50MHz to select the source multiplier.
+- Each multiplier's result is sampled after 20ns (50MHz).
+- Datapath delivers the results after 30ns (ideal & best case).
 
-### Timing Diagram
+## Timing Diagram
+The timing diagram presents behavioural simulation of logic.
+Obtained using Vivado Design Suite, XSIM simulator. The results are verified by post synthesis functional simulation as well.
 
 ![Concept](waveform/screenshot2.png)
 
-### Explanation
+## Explanation
+Please follow the waveform for better understanding.
 
-- RESET is asserted, registers flush
-- Addition is combinationally performed, the results are transparent after the pipeline stage.
-- The Stage-1 output data is distributed to MUL1 and MUL2 depending on clock_50MHz (high and low) by  a demux.
-- Multiplication is combinationally performed, the mux selects the appropriate source and the results are transparent to output at 3rd cycle.
-- Some 1's in the early stages because of `add + 1` logic in ADD and MUL to create second operand for later stage.
+- cycle-1: RESET Active, NOP, operand pair-1 missed
+- cycle-2: Addition is performed combinationally. The results are transparent to respective multiplier.
+- cycle-3: Multiplication is performed combinationally, the selected results are transparent to the ADDR-2.
+- cycle-3: Final addition is performed and the results `res1` is available.
 
-### Synthesis
-The elaborated schematic (pre-synth) is as follows:
-https://github.com/aitesam961/bi-tribble/blob/main/schematic.pdf   
 
-This design works as intended in the Behavioural simulations but synthesis with Xilinx Vivado infers latches before multiplier (as a substitute for demux, vivado doesn't support demux) probably to keep results buffered after the cycle is over. 
+### Attempt-1 (Failed)
 
-One alternative could be to make the multipliers clock sensitive but that means additional clock cycle before the result would be transparent. Secondly, the significant delay is required after the Stage-1 before the multiplier can sample input and perform the execution.
+I tried to implement a demux between MUL and Stage-1 register but Vivado synthesis tool doesn't allow demux. The behavioural simulation worked but synthesis inferred latches to complement demux. The output was incorrect.
+
+### Attempt-2 (Failed)
+
+I changed the multipliers to sequential (clock sensitive) but that turned out to take additional cycle before the results are returned. The duty cycle was much delayed as multipliers take long time to settle the output for next register.
+
+### Attempt-3 (Success)
+I split the stage-1 registers. Now they sample the inputs in a time-multiplexed fashion thus making the design possible and functional post synthesis.
 
 ### Outcome
+Even though the system is functional, I have some magnitude of dissatisfaction over it.
 
-In behavioural simulation, the result is delivered in impressive 15ns but that is when multiplier + mux/demux returns the result before 1ns in ideal case. In this case, I have adjusted the test bench timing to match the ideal case in order to see the results. After synthesis, it is obvious that multiplier will add 20ns for a 50meg cycle and total time would be 35ns which is the same as if multiplier was internally pipelined.
+I initially wanted to complement slower logic by compromising more area. In short, time-muxing multiple instances of slower logic to avoid delaying clock.
+Ideally, I was expecting the results as follow:
 
-I got the synthesis successful by adding additional splitted for each, registers between Stage 1 and multiplier that would run at 50MHz but this takes additional cycle. Overall it forms kind of a synchronizer between 100meg and 50meg. The additional cycle adds upto the execution time of >35ns which is comparative to that of a pipelined multiplier. 
+- **clk_high@100MHz (10ns cycle)**
+- **clk_slow@50MHz (20ns cycle)**
+- **Logic: ADD->MUL->ADD**
 
-For example, in case where 100MHz and 50MHz clocks are being used, the result A will be returned after at least ~35ns (10ns cycle latency + 20ns 1x 50meg cycle latency + ~5ns adder latency) @100MHz which is similar to the fully pipelined approach where MUL will take 2x cycles.
-
-Sadly no gains possible in overall execution time. I missed this point in my initial concept as I was trying to achieve return of result in ~25ns.
