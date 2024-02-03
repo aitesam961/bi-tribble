@@ -66,7 +66,7 @@ module asmcvd_xp(
     );
     
     
-    always_comb begin
+    always_ff@(posedge clk_50meg or negedge clk_50meg) begin
         if(clk_50meg)begin
             s2iop1  <=  s2iop11;
             s2iop2  <=  s2iop12;
