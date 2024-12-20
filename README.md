@@ -51,3 +51,11 @@ Ideally, I was expecting the results as follow:
 - **clk_slow@50MHz (20ns cycle)**
 - **Logic: ADD->MUL->ADD**
 
+
+
+
+### License
+
+This work is published under General Public License V3.0 See `LICENSE.txt` for more information.
+> https://www.gnu.org/licenses/quick-guide-gplv3.html
+
